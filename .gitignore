@@ -1,0 +1,83 @@
+# ----------------------------
+# Python
+# ----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ----------------------------
+# Virtual Environment
+# ----------------------------
+venv/
+.env/
+.env.*
+.venv/
+
+# ----------------------------
+# Django
+# ----------------------------
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+local_settings.py
+
+# Migrations (optional: keep if this is a shared project)
+# */migrations/*
+# !*/migrations/__init__.py
+
+# ----------------------------
+# Wagtail
+# ----------------------------
+.wagtail/
+
+# ----------------------------
+# Environment Variables
+# ----------------------------
+.env
+.env.local
+.env.production
+*.env
+
+# ----------------------------
+# Docker
+# ----------------------------
+docker-compose.override.yml
+*.pid
+
+# ----------------------------
+# VS Code / Editors
+# ----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ----------------------------
+# OS Files
+# ----------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# Coverage / Testing
+# ----------------------------
+.coverage
+htmlcov/
+.pytest_cache/
+
+# ----------------------------
+# Node (if you later add frontend tooling)
+# ----------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
