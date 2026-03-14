@@ -1,11 +1,26 @@
 {% extends "base.html" %}
+{% load wagtailimages_tags %}
 
-<!-- load wagtailcore_tags by adding this: -->
-{% load wagtailcore_tags %}
-
-{% block body_class %}template-homepage{% endblock %}
-
-<!-- replace everything below with: -->
 {% block content %}
-    {{ page.body|richtext }}
+<header style="background: url('{% image page.hero_image fill-1920x600 as img %}{{ img.url }}'); height: 80vh; background-size: cover; display: flex; align-items: center; justify-content: center; color: white; text-align: center;">
+    <div style="background: rgba(0,0,0,0.5); padding: 2rem; border-radius: 10px;">
+        <h1>{{ page.hero_caption }}</h1>
+        <a href="#cars" style="background: #e74c3c; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Explore Cars</a>
+    </div>
+</header>
+
+<section id="cars" style="padding: 50px; display: flex; gap: 20px; justify-content: center;">
+    {% for car in page.featured_cars.all %}
+        <div style="text-align: center; width: 300px;">
+            {% image car.car_image fill-300x200 %}
+            <h3>{{ car.car_name }}</h3>
+        </div>
+    {% endfor %}
+</section>
+
+<footer style="background: #222; color: #fff; padding: 40px; text-align: center;">
+    <p>{{ page.showroom_address|linebreaks }}</p>
+    <hr style="width: 50px; border-color: #555;">
+    <p>Developed by <strong>Somasekar</strong></p>
+</footer>
 {% endblock %}
