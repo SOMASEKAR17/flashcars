@@ -1,10 +1,45 @@
 from django.db import models
+from wagtail.models import Page, Orderable
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
 
-from wagtail.models import Page
-from wagtail.fields import RichTextField
 
+class FeaturedCar(Orderable):
+    page = ParentalKey('HomePage', related_name='featured_cars')
+    car_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    car_name = models.CharField(max_length=100)
+
+    panels = [
+        FieldPanel('car_image'),
+        FieldPanel('car_name'),
+    ]
 
 class HomePage(Page):
-    body = RichTextField(blank=True)
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    hero_caption = models.CharField(
+        max_length=255, 
+        default="Cars are a different experience"
+    )
 
-    content_panels = Page.content_panels + ["body"]
+    showroom_address = models.TextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('hero_image'),
+            FieldPanel('hero_caption'),
+        ], heading="Hero Section"),
+        InlinePanel('featured_cars', label="Featured Cars", max_num=3),
+        FieldPanel('showroom_address'),
+    ]
