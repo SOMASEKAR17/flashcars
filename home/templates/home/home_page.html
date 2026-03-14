@@ -1,26 +1,31 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
 {% block content %}
-<header style="background: url('{% image page.hero_image fill-1920x600 as img %}{{ img.url }}'); height: 80vh; background-size: cover; display: flex; align-items: center; justify-content: center; color: white; text-align: center;">
-    <div style="background: rgba(0,0,0,0.5); padding: 2rem; border-radius: 10px;">
+{% image page.hero_image fill-1920x1080 as hero_img %}
+<header class="hero-header" style="background: url('{{ hero_img.url }}');">
+    <div class="hero-overlay">
         <h1>{{ page.hero_caption }}</h1>
-        <a href="#cars" style="background: #e74c3c; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Explore Cars</a>
+        <a href="#cars" class="btn-explore">Explore Cars</a>
     </div>
 </header>
 
-<section id="cars" style="padding: 50px; display: flex; gap: 20px; justify-content: center;">
+<section id="cars" class="cars-section">
     {% for car in page.featured_cars.all %}
-        <div style="text-align: center; width: 300px;">
-            {% image car.car_image fill-300x200 %}
+        <div class="car-card">
+            {% image car.car_image fill-350x230 %}
             <h3>{{ car.car_name }}</h3>
         </div>
     {% endfor %}
 </section>
 
-<footer style="background: #222; color: #fff; padding: 40px; text-align: center;">
+<footer class="main-footer">
     <p>{{ page.showroom_address|linebreaks }}</p>
-    <hr style="width: 50px; border-color: #555;">
-    <p>Developed by <strong>Somasekar</strong></p>
+    <hr class="footer-divider">
+    <p class="developer-tag">Developed by <strong>Somasekar</strong></p>
 </footer>
 {% endblock %}
