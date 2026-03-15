@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<main style="background: #000; min-height: 100vh; color: white; padding-top: 100px;">
+    <div style="max-width: 1100px; margin: 0 auto; padding: 20px; display: flex; gap: 50px; flex-wrap: wrap;">
+        
+        <div style="flex: 1; min-width: 300px;">
+            {% image page.car_image fill-800x600 as car_img %}
+            <img src="{{ car_img.url }}" alt="{{ page.title }}" style="width: 100%; border-radius: 15px; border: 1px solid #333;">
+        </div>
+
+        <div style="flex: 1; min-width: 300px;">
+            <h1 style="font-size: 3.5rem; margin-bottom: 10px;">{{ page.brand }} <span style="color: #e74c3c;">{{ page.title }}</span></h1>
+            
+            <p style="font-size: 2rem; color: #e74c3c; font-weight: bold; margin-bottom: 30px;">
+                ${{ page.price }}
+            </p>
+
+            <div style="background: #111; padding: 30px; border-radius: 10px; border-left: 5px solid #e74c3c;">
+                <h3 style="margin-top: 0; text-transform: uppercase; letter-spacing: 1px; color: #888;">Specifications</h3>
+                <p style="line-height: 1.8; font-size: 1.1rem;">{{ page.specifications|linebreaks }}</p>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <a href="{% pageurl page.get_parent %}" style="color: #666; text-decoration: none; font-size: 0.9rem;">← Back to Collection</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
