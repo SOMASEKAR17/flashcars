@@ -2,6 +2,7 @@ from django.db import models
 from wagtail.models import Page, Orderable
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import PageChooserPanel
 
 
 class FeaturedCar(Orderable):
@@ -28,6 +29,13 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    explore_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
     hero_caption = models.CharField(
         max_length=255, 
         default="Cars are a different experience"
@@ -36,6 +44,7 @@ class HomePage(Page):
     showroom_address = models.TextField(blank=True)
 
     content_panels = Page.content_panels + [
+        PageChooserPanel('explore_page', 'cars.CarIndexPage'),
         MultiFieldPanel([
             FieldPanel('hero_image'),
             FieldPanel('hero_caption'),
