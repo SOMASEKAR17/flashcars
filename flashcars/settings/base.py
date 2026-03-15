@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+SETTINGS_DIR = Path(__file__).resolve().parent
+
+load_dotenv(SETTINGS_DIR / ".env")
+
+db_url = os.getenv('DATABASE_URL')
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
@@ -28,6 +35,9 @@ INSTALLED_APPS = [
     "cars",
     "home",
     "search",
+    'cloudinary_storage',
+    'cloudinary',
+    "django.contrib.postgres",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -49,6 +59,17 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -87,12 +108,14 @@ WSGI_APPLICATION = "flashcars.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
 
 
 # Password validation
@@ -148,7 +171,7 @@ MEDIA_URL = "/media/"
 # See https://docs.djangoproject.com/en/5.2/ref/settings/#std-setting-STORAGES
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
