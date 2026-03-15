@@ -6,8 +6,14 @@
 {% endblock %}
 
 {% block content %}
-{% image page.hero_image fill-1920x1080 as hero_img %}
-<header class="hero-header" style="background: url('{{ hero_img.url }}');">
+<header class="hero-header">
+    <div class="hero-carousel">
+        {% for car in page.featured_cars.all|slice:":3" %}
+            {% image car.car_image fill-1920x1080 as bg_img %}
+            <div class="slide" style="background-image: url('{{ bg_img.url }}');"></div>
+        {% endfor %}
+    </div>
+
     <div class="hero-overlay">
         <h1>{{ page.hero_caption }}</h1>
         <a href="#cars" class="btn-explore">Explore Cars</a>
@@ -26,6 +32,6 @@
 <footer class="main-footer">
     <p>{{ page.showroom_address|linebreaks }}</p>
     <hr class="footer-divider">
-    <p class="developer-tag">Developed by <strong>Somasekar</strong></p>
+    <p class="developer-tag">Developed by <strong>Somasekar</strong> | Wagtail CMS</p>
 </footer>
 {% endblock %}

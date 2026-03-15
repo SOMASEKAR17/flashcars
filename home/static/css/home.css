@@ -18,7 +18,6 @@ html, body {
 .hero-overlay {
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px); /* For Safari */
     padding: 3rem;
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -68,7 +67,7 @@ html, body {
 }
 
 .car-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-2px);
     border-color: #e74c3c;
 }
 
@@ -101,4 +100,55 @@ html, body {
     color: #e74c3c;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+
+.hero-header {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.hero-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+    animation: slide-animation 15s infinite;
+}
+
+
+.hero-carousel .slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.hero-overlay {
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(4px);
+    padding: 3rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    max-width: 80%;
+}
+
+@keyframes slide-animation {
+    0%, 30% { transform: translateX(0); }
+    33%, 63% { transform: translateX(-33.3333%); }
+    66%, 96% { transform: translateX(-66.6666%); }
+    100% { transform: translateX(0); }
 }
