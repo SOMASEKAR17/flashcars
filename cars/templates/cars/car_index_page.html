@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<main style="background: #000; min-height: 100vh; padding: 120px 20px 60px;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <h1 style="color: white; font-size: 3rem; margin-bottom: 10px;">Our <span style="color: #e74c3c;">Collection</span></h1>
+        <p style="color: #666; margin-bottom: 40px;">{{ page.intro }}</p>
+
+        <div class="cars-section" style="padding: 0; justify-content: flex-start;">
+            {% for car in cars %}
+                <div class="car-card">
+                    {% image car.car_image fill-350x230 %}
+                    <h3>{{ car.brand }} {{ car.title }}</h3>
+                    <p style="color: #e74c3c; font-weight: bold;">${{ car.price }}</p>
+                    <a href="{% pageurl car %}" class="btn-explore" style="padding: 8px 15px; font-size: 0.8rem; margin-top: 10px;">Details</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}
